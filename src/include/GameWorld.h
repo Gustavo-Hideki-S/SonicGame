@@ -28,3 +28,10 @@ void updateGameWorld( GameWorld *gw, float delta );
  * @brief Desenha o estado do jogo.
  */
 void drawGameWorld( GameWorld *gw );
+
+typedef enum {
+    ESTADO_TELA_INICIO,
+    ESTADO_JOGANDO,
+    ESTADO_TRANSICAO_FASE,
+    ESTADO_CONTINUE
+} EstadoJogo;

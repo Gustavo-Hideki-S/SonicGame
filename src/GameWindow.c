@@ -52,6 +52,7 @@ GameWindow *createGameWindow(
     return gameWindow;
 
 }
+EstadoJogo estado = ESTADO_TELA_INICIO;
 
 /**
  * @brief Initializes the Window, starts the game loop and, when it
@@ -104,21 +105,55 @@ void initGameWindow( GameWindow *gameWindow ) {
         }
 
         gameWindow->gw = createGameWorld();
+        PlayMusicStream( rm.musicaInicio );
 
         // game loop
         while ( !WindowShouldClose() ) {
 
-            // O delta time é limitado a 1/30s para evitar que frames muito
-            // longos (ex.: lentidão na inicialização) causem deslocamentos
-            // grandes demais, fazendo personagens atravessarem obstáculos
-            // (tunneling).
+            UpdateMusicStream( rm.musicaInicio );
             float delta = GetFrameTime();
+                
             if ( delta > 1.0f / 30.0f ) {
                 delta = 1.0f / 30.0f;
             }
-
-            updateGameWorld( gameWindow->gw, delta );
-            drawGameWorld( gameWindow->gw );
+        
+            if ( estado == ESTADO_TELA_INICIO ) {
+            
+                if ( IsKeyPressed( KEY_ENTER ) ) {
+                    StopMusicStream( rm.musicaInicio );
+                    estado = ESTADO_JOGANDO;
+                    
+                }
+            
+                BeginDrawing();
+            
+                ClearBackground( BLACK );
+            
+                DrawText(
+                    "SONIC",
+                    300,
+                    200,
+                    50,
+                    WHITE
+                );
+            
+                DrawText(
+                    "PRESSIONE ENTER",
+                    250,
+                    300,
+                    30,
+                    YELLOW
+                );
+            
+                EndDrawing();
+            
+            } else if ( estado == ESTADO_JOGANDO ) {
+            
+                updateGameWorld( gameWindow->gw, delta );
+                drawGameWorld( gameWindow->gw );
+            
+            }
+        
         }
 
         if ( gameWindow->loadResources ) {

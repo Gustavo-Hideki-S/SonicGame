@@ -33,6 +33,7 @@ typedef struct ResourceManager {
 
     Music musicaFase01;
     Music musicaFase02;
+    Music musicaInicio;
 
 } ResourceManager;
 
