@@ -11,6 +11,8 @@
 #include "GameWindow.h"
 #include "GameWorld.h"
 #include "ResourceManager.h"
+#include "TelaInicio.h"
+#include "Tipos.h"
 #include "raylib/raylib.h"
 
 /**
@@ -52,6 +54,7 @@ GameWindow *createGameWindow(
     return gameWindow;
 
 }
+
 EstadoJogo estado = ESTADO_TELA_INICIO;
 
 /**
@@ -104,6 +107,8 @@ void initGameWindow( GameWindow *gameWindow ) {
             loadResourcesResourceManager();
         }
 
+        TelaInicio *telaInicio = criarTelaInicio();
+
         gameWindow->gw = createGameWorld();
         PlayMusicStream( rm.musicaInicio );
 
@@ -118,33 +123,35 @@ void initGameWindow( GameWindow *gameWindow ) {
             }
         
             if ( estado == ESTADO_TELA_INICIO ) {
-            
-                if ( IsKeyPressed( KEY_ENTER ) ) {
+
+                atualizarTelaInicio( telaInicio, delta );
+
+                if ( telaInicioLoopAtivo( telaInicio ) && IsKeyPressed( KEY_ENTER ) ) {
                     StopMusicStream( rm.musicaInicio );
                     estado = ESTADO_JOGANDO;
-                    
                 }
             
                 BeginDrawing();
-            
-                ClearBackground( BLACK );
-            
-                DrawText(
-                    "SONIC",
-                    300,
-                    200,
-                    50,
-                    WHITE
-                );
-            
-                DrawText(
-                    "PRESSIONE ENTER",
-                    250,
-                    300,
-                    30,
-                    YELLOW
-                );
-            
+                    ClearBackground( BLACK );
+                    DrawTexturePro(
+                        rm.texturaFundoFase1,
+                        (Rectangle){
+                            0,
+                            0,
+                            rm.texturaFundoFase1.width,
+                            rm.texturaFundoFase1.height
+                        },
+                        (Rectangle){
+                            0,
+                            0,
+                            gameWindow->width,
+                            gameWindow->height
+                        },
+                        (Vector2){0,0},
+                        0,
+                        WHITE
+                    );
+                    desenharTelaInicio( telaInicio, gameWindow->width, gameWindow->height );
                 EndDrawing();
             
             } else if ( estado == ESTADO_JOGANDO ) {
@@ -155,6 +162,8 @@ void initGameWindow( GameWindow *gameWindow ) {
             }
         
         }
+
+        destruirTelaInicio( telaInicio );
 
         if ( gameWindow->loadResources ) {
             unloadResourcesResourceManager();
