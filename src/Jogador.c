@@ -34,6 +34,7 @@ static void resolverColisaoJogadorObstaculosMapaY( Jogador *j, Mapa *mapa );
 
 static void resolverColisaoJogadorItensMapa( Jogador *j, GameWorld *gw );
 static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw );
+static void perderVida( Jogador *j, GameWorld *gw );
 
 static const bool MOSTRAR_RETANGULOS = false;
 
@@ -595,6 +596,7 @@ static void resolverColisaoJogadorItensMapa( Jogador *j, GameWorld *gw ) {
 
             if ( CheckCollisionRecs( retColCalculado, retColItemCalculado ) ) {
                 monitorVida->estado = ESTADO_MONITOR_VIDA_COLETADO;
+                monitorVida->ativo = false;
                 j->quantidadeVidas++;
                 gw->pontuacao += 50;
                 PlaySound( rm.somAnel );
@@ -623,6 +625,7 @@ static void resolverColisaoJogadorItensMapa( Jogador *j, GameWorld *gw ) {
 
             if ( CheckCollisionRecs( retColCalculado, retColItemCalculado ) ) {
                 monitorInvencivel->estado = ESTADO_MONITOR_INVENCIVEL_COLETADO;
+                monitorInvencivel->ativo = false;
                 j->invulneravel = true;
                 j->contadorTempoInvulnerabilidade = 0.0f;
                 j->tempoInvulnerabilidade = 5.0f; // 5 segundos de invencibilidade
@@ -703,8 +706,7 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw ) {
                         gw->tempoPiscarRings = 2.0f;
                         PlaySound( rm.somHitComAnel );
                     } else {
-                        j->quantidadeVidas--;
-                        PlaySound( rm.somMorte );
+                        perderVida( j, gw );
                     }
                     j->invulneravel = true;
                 }
@@ -753,8 +755,7 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw ) {
                         gw->tempoPiscarRings = 2.0f;
                         PlaySound( rm.somHitComAnel );
                     } else {
-                        j->quantidadeVidas--;
-                        PlaySound( rm.somMorte );
+                        perderVida( j, gw );
                     }
                     j->invulneravel = true;
                 }
@@ -775,8 +776,7 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw ) {
                             gw->tempoPiscarRings = 2.0f;
                             PlaySound( rm.somHitComAnel );
                         } else {
-                            j->quantidadeVidas--;
-                            PlaySound( rm.somMorte );
+                            perderVida( j, gw );
                         }
                         j->invulneravel = true;
                     }
@@ -819,8 +819,7 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw ) {
                         gw->tempoPiscarRings = 2.0f;
                         PlaySound( rm.somHitComAnel );
                     } else {
-                        j->quantidadeVidas--;
-                        PlaySound( rm.somMorte );
+                        perderVida( j, gw );
                     }
                     j->invulneravel = true;
                 }
@@ -841,8 +840,7 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw ) {
                             gw->tempoPiscarRings = 2.0f;
                             PlaySound( rm.somHitComAnel );
                         } else {
-                            j->quantidadeVidas--;
-                            PlaySound( rm.somMorte );
+                            perderVida( j, gw );
                         }
                         j->invulneravel = true;
                     }
@@ -856,5 +854,16 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, GameWorld *gw ) {
         el = el->proximo;
 
     }
+
+}
+static void perderVida( Jogador *j, GameWorld *gw ) {
+
+    j->quantidadeVidas--;
+
+    if ( j->quantidadeVidas <= 0 ) {
+        gw->jogadorMorreu = true;
+    }
+
+    PlaySound( rm.somMorte );
 
 }

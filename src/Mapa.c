@@ -135,9 +135,9 @@ Mapa *carregarMapa( const char *caminhoArquivo ) {
                             item->objeto = criarMonitorVida(
                                 (Rectangle) {
                                     .x = novoMapa->dimensaoPadraoElementos * colunaAtual + 8,
-                                    .y = novoMapa->dimensaoPadraoElementos * linhaAtual + 8,
-                                    .width = 32,
-                                    .height = 32
+                                    .y = novoMapa->dimensaoPadraoElementos * linhaAtual - 8,
+                                    .width = 64,
+                                    .height = 64
                                 },
                                 GREEN
                             );
@@ -153,9 +153,9 @@ Mapa *carregarMapa( const char *caminhoArquivo ) {
                                 item->objeto = criarMonitorInvencivel(
                                     (Rectangle) {
                                         .x = novoMapa->dimensaoPadraoElementos * colunaAtual + 8,
-                                        .y = novoMapa->dimensaoPadraoElementos * linhaAtual + 8,
-                                        .width = 32,
-                                        .height = 32
+                                        .y = novoMapa->dimensaoPadraoElementos * linhaAtual - 8,
+                                        .width = 64,
+                                        .height = 64
                                     },
                                     BLUE
                                 );

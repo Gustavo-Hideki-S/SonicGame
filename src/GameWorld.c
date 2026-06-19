@@ -86,23 +86,12 @@ void updateGameWorld( GameWorld *gw, float delta ) {
     entradaJogador( j, delta );
     atualizarJogador( j, gw, delta );
     atualizarCamera( gw );
-    if ( gw->faseAtual == 1 &&
-        gw->jogador->ret.x > calcularLarguraMapa( gw->mapa ) - 200 ) {
+    if ( gw->jogador->ret.x > calcularLarguraMapa( gw->mapa ) - 200 ) {
 
-        destruirMapa( gw->mapa );
-
-        if ( IsMusicStreamPlaying( rm.musicaFase01 ) ) {
-            StopMusicStream( rm.musicaFase01 );
+        gw->faseConcluida = true;
+        if (gw->faseAtual == 2) {
+            gw->jogoConcluido = true;
         }
-        PlayMusicStream( rm.musicaFase02 );
-
-        rm.texturaTerreno = rm.texturaTerreno2;
-        gw->mapa = carregarMapa( "resources/mapas/mapa02.txt" );
-
-        gw->jogador->ret.x = 100;
-        gw->jogador->ret.y = 100;
-
-        gw->faseAtual = 2;
     }
 
 }
@@ -295,6 +284,10 @@ static void atualizarCamera( GameWorld *gw ) {
 
 static void inicializar( GameWorld *gw ) {
 
+    gw->jogadorMorreu = false;
+    gw->gameOver = false;
+    gw->jogoConcluido = false;
+    gw->faseConcluida = false;
     gw->faseAtual = 1;
     gw->mapa = carregarMapa("resources/mapas/mapa01.txt");
     

@@ -8,12 +8,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "TelaPontuacao.h"
 #include "GameWindow.h"
 #include "GameWorld.h"
 #include "ResourceManager.h"
 #include "TelaInicio.h"
 #include "Tipos.h"
 #include "raylib/raylib.h"
+#include "Mapa.h"
 
 /**
  * @brief Creates a dinamically allocated GameWindow struct instance.
@@ -108,6 +110,8 @@ void initGameWindow( GameWindow *gameWindow ) {
         }
 
         TelaInicio *telaInicio = criarTelaInicio();
+        TelaPontuacao *telaPontuacao = NULL;
+
 
         gameWindow->gw = createGameWorld();
         PlayMusicStream( rm.musicaInicio );
@@ -157,8 +161,104 @@ void initGameWindow( GameWindow *gameWindow ) {
             } else if ( estado == ESTADO_JOGANDO ) {
             
                 updateGameWorld( gameWindow->gw, delta );
+                if ( gameWindow->gw->jogadorMorreu ) {
+                    estado = ESTADO_GAME_OVER;
+                }
+                if ( gameWindow->gw->faseConcluida ) {
+
+                    telaPontuacao = criarTelaPontuacao(
+                        gameWindow->gw->pontuacao,
+                        (int) gameWindow->gw->tempoJogo,
+                        gameWindow->gw->jogador->quantidadeAneis,
+                        gameWindow->gw->jogador->quantidadeVidas
+                    );
+                
+                    gameWindow->gw->faseConcluida = false;
+                    estado = ESTADO_TRANSICAO_FASE;
+                }
                 drawGameWorld( gameWindow->gw );
             
+            }
+            else if ( estado == ESTADO_TRANSICAO_FASE ) {
+                        
+                atualizarTelaPontuacao( telaPontuacao, delta );
+                        
+                if ( telaPontuacaoPronta( telaPontuacao ) &&
+                     IsKeyPressed( KEY_ENTER ) ) {
+
+                    if ( gameWindow->gw->jogoConcluido ) {
+
+                        destruirTelaPontuacao( telaPontuacao );
+                        telaPontuacao = NULL;
+
+                        break;   // sai do while
+
+                    } else {
+                    
+                    destruirTelaPontuacao( telaPontuacao );
+                    telaPontuacao = NULL;
+                    
+                    destruirMapa( gameWindow->gw->mapa );
+
+                    if ( IsMusicStreamPlaying( rm.musicaFase01 ) ) {
+                        StopMusicStream( rm.musicaFase01 );
+                    }
+
+                    PlayMusicStream( rm.musicaFase02 );
+
+                    rm.texturaTerreno = rm.texturaTerreno2;
+
+                    gameWindow->gw->mapa =
+                        carregarMapa( "resources/mapas/mapa02.txt" );
+
+                    gameWindow->gw->jogador->ret.x = 100;
+                    gameWindow->gw->jogador->ret.y = 100;
+
+                    gameWindow->gw->faseAtual = 2;
+
+                    estado = ESTADO_JOGANDO;
+                    continue;
+                    }
+                }
+            
+                BeginDrawing();
+                    desenharTelaPontuacao(
+                        telaPontuacao,
+                        gameWindow->width,
+                        gameWindow->height
+                    );
+                EndDrawing();
+                
+            }else if ( estado == ESTADO_GAME_OVER ) {
+
+                 BeginDrawing();
+
+                    ClearBackground( BLACK );
+
+                    DrawText(
+                        "GAME OVER",
+                        gameWindow->width / 2 - 150,
+                        gameWindow->height / 2,
+                        60,
+                        RED
+                    );
+                    DrawText(
+                        "Pressione ENTER para reiniciar",
+                        gameWindow->width / 2 - 180,
+                        gameWindow->height / 2 + 80,
+                        20,
+                        WHITE
+                    );
+                
+                EndDrawing();
+                if ( IsKeyPressed( KEY_ENTER ) ) {
+
+                    destroyGameWorld( gameWindow->gw );
+                    gameWindow->gw = createGameWorld();
+
+                    estado = ESTADO_JOGANDO;
+                }
+                
             }
         
         }

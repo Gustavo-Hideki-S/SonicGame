@@ -1,22 +1,22 @@
-                             
-                                                  
-
-                                        2
-                        LLLLLLLLLL   
-                    a                                                                M      0    M
-                   aM                                     a                           MMMMMMMMMMM        
-                  aM                                     aaa                      M            
-                 aM                                     aaaaa                    I              
-                aM          aaa                        aaaaaaa                                 
-          a    aM          aLBIa       M    1  M      aaaaaaaaa                                 
-          Ma   M    a    aaLGAFIaa      LBBBBBI     LBBBBBBBBBBBBBBBBBBBI                     LBBBBBI        
-           Ma      aM   LBBGAAAFBBI     KDDDDDJ     KDDDDDDDDDDDDDDDDDDDJ                     KDDDDDJ        
-            Ma    aM    KDDDDDDDDDJ                                                             
-             M   aM                                                                              
-                aM                                                                               
-                M                                                                                                    C
-                                                                                                                     C
-A    1 0 0 M            M       0       b      1            M          c     M          1                            C
-FBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBGC
+                                                                                     MLaaaaaaaaaaaaaaaaaaaaaaaa
+                                                                     aaa              Laaaaaaaaaaaaaaaaaaaaaaaa
+                                                                  LBBBBBBBI    C      LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                                        2        aaa              KDDDDDDDJ    C      LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        LLLLLLLLLL            BBBBBBBB    DDDD                 C      LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                    a                                           M  B           C      LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                   aM                                     a       B            C     bLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                  aM                                     aaa     B             C     MLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                 aM                                     aaaaa   B              C      LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                aM          aaa                        aaaaaaa B               C  aa  LDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+          a    aM          aLBIa       M    1  M      aaaaaaaaa                C  aa  L                              C
+          Ma   M    a    aaLGAFIaa      LBBBBBI     LBBBBBBBBBBBBBBBBBBBI      C  aa  L                              C
+           Ma      aM   LBBGAAAFBBI     KDDDDDJ     KDDDDDDDDDDDDDDDDDDDJ      C      L                              C
+            Ma    aM    KDDDDDDDDDJ                                            C      L                              C
+             M   aM                                                            C      L                              C
+                aM                                                             C                                     C
+                M                                                              C                       aAAAAAAAAAAAAAC
+                                                                               C                      aAAAAAAAAAAAAAAC
+A    1 0 0 M            M       0       b      1            M          c     M C         1           aAAAAAAAAAAAAAAAC
+FBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC

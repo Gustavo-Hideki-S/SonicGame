@@ -355,5 +355,9 @@ typedef struct GameWorld {
     float tempoPiscarRings;
 
     int faseAtual;
+    bool faseConcluida;
+    bool jogoConcluido;
+    bool gameOver;
+    bool jogadorMorreu;
 
 } GameWorld;
